@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Details</title>
+    <!-- Add your CSS and other dependencies here -->
+</head>
+<body>
+    <h2>Provide Your Details</h2>
+    <form action="{{ url_for('details_form') }}" method="POST">
+        <label for="caste">Caste:</label>
+        <input type="text" name="caste" required><br>
+
+        <label for="religion">Religion:</label>
+        <input type="text" name="religion" required><br>
+
+        <!-- Add more fields for other details -->
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

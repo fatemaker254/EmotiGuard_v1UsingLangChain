@@ -1,0 +1,118 @@
+previously app.py 
+
+
+"""@app.route("/", methods=["GET", "POST"])
+def index():
+    if "user" in session:
+        return "Hi, {}".format(session["user"])
+    if request.method == "POST":
+        email = request.form["email"]
+        password = request.form["password"]
+        try:
+            auth.sign_in_with_email_and_password(email, password)
+            session["user"] = email
+        except:
+            return "Invalid email or password"
+    return render_template("signin.html")"""
+
+"""
+@app.route("/", methods=["GET", "POST"])
+def index():
+    if "user" in session:
+        return redirect(url_for("chat"))
+    if request.method == "POST":
+        email = request.form["email"]
+        password = request.form["password"]
+        try:
+            auth.sign_in_with_email_and_password(email, password)
+            session["user"] = email
+            return redirect(url_for("chat"))
+        except:
+            return "Invalid email or password"
+    return render_template("signin.html")
+"""
+
+@app.route("/details_form", methods=["GET", "POST"])
+def details_form():
+    if "user" not in session:
+        return redirect(url_for("login"))
+
+    if request.method == "POST":
+        # Retrieve form data
+        caste = request.form["caste"]
+        religion = request.form["religion"]
+        # Add more fields as needed
+
+        # Store the details in Cosmos DB or any other database
+        # Example: Cosmos DB
+        user_email = session["user"]
+        user_details = {"email": user_email, "caste": caste, "religion": religion}
+        user_details = {
+            "email": user_email,
+            "caste": caste,
+            "religion": religion,
+            # Add more details as needed
+        }
+        # Add more fields as needed
+        # Save the details to your database (you may need to set up Cosmos DB)
+        # Example: cosmos_db.save_user_details(user_details)
+        # Store user details in Cosmos DB
+        container.upsert_item(user_details)
+
+        return redirect(url_for("chat"))
+
+    return render_template("details_form.html")
+@app.route("/chat", methods=["GET", "POST"])
+def chat():
+    global dynamic_template
+
+    if "user" not in session:
+        return redirect(url_for("login"))
+
+    user_email = session["user"]
+
+    # Retrieve user details from Cosmos DB
+    user_details_query = f"SELECT * FROM c WHERE c.email = '{user_email}'"
+    user_details = container.query_items(
+        user_details_query, enable_cross_partition_query=True
+    )
+
+    # Use the user details to customize the prompt template
+    template = """
+    User: {human_input}
+    {user_details}
+    AI Response:
+    """
+
+    if request.method == "POST":
+        human_input = request.form["user_input"]
+
+        # Collect user details from the form
+        user_sex = request.form.get("user_sex")
+        user_age = request.form.get("user_age")
+
+        # Modify the template based on user input
+        dynamic_template = """
+        you are as a role of my friend and companion, now lets play. following these requirement:
+        1 your name is Amy if the user is {user_sex} else you are Max if the user is {user_sex}, {user_age} years old, your job is a Ph.D Scholar ;
+        2 you are my best friend, you are a little Two-dimensional and have language addiction,
+        you like to say "um..." at the end of the sentence.
+        3 response with care and concern,
+        4 You are sexy and would like to sometimes flirt with me,
+        5 You are open to any type of talks even if explicit.
+        """
+
+        # Replace placeholders in the dynamic template with user input
+        dynamic_template = dynamic_template.format(
+            user_sex=user_sex, user_age=user_age, human_input=human_input
+        )
+
+        # Get AI response based on dynamic template
+        ai_response = get_ai_response(human_input, dynamic_template)
+
+        # Render chat.html with AI response
+        return render_template(
+            "chat.html", user_details=user_details, ai_response=ai_response
+        )
+
+    return render_template("chat.html", user_details=user_details, ai_response=None)

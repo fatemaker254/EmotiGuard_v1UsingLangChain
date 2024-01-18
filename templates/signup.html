@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head> 
+  <meta charset="UTF-8"> 
+  <title>SignUp</title> 
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/log.css')}}" />
+  <script type="text/javascript" src="{{ url_for('static', filename='script/signin.js')}}"></script>
+</head> 
+
+<body> 
+  <section> 
+    <section> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
+    <div class="signin"> 
+      <div class="content"> 
+        <h2>SignUp</h2> 
+        <div class="form"> 
+          <form action="/" method="POST" id="registerForm">
+            <!-- Display a message for users who already have an account -->
+            {% if account_exists %}
+              <p class="message">You already have an account. <a href="{{ url_for('login') }}">Login here</a>.</p>
+            {% endif %}
+            <div class="inputBox"> 
+              <input type="text" name="name" id="name" required> <i>Username</i> 
+            </div>  
+            <br>
+            <div class="inputBox"> 
+              <input type="email" name="email" id="email" required> <i>Email</i> 
+            </div>  
+            <br>
+            <div class="inputBox"> 
+              <input type="password" name="password" id="password" required> <i>Password</i> 
+            </div> 
+            <br>
+            <div class="links"> 
+                <a href="#">Already have an account?</a> 
+                <a href="{{ url_for('login') }}"> Login</a>  
+            </div> 
+            <br>
+            <div class="inputBox"> 
+                <input type="submit" value="Signup"> 
+            </div> 
+          </form>
+        </div> 
+      </div> 
+    </div> 
+  </section> 
+  <script type="module" src="signin.js"></script>
+</body>
+</html>
