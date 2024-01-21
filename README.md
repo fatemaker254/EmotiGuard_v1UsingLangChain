@@ -19,3 +19,15 @@ Download the packages
 Run the flask backend app.py file
 
 ``` python app.py ```
+
+UNIX / DARWIN System
+
+## step1
+```bash
+python3 -m venv venv 
+source venv/bin/activate
+sudo pip3 install -r requirements.txt
+python3 app.py
+```
+
+
