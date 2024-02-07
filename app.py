@@ -26,7 +26,12 @@ app.secret_key = "secret"
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    return redirect(url_for("chat"))
+    return redirect(url_for("landing_page"))
+
+
+@app.route("/landing_page")
+def landing_page():
+    return render_template("load.html")
 
 
 @app.route("/chat", methods=["GET", "POST"])
